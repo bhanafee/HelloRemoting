@@ -1,6 +1,6 @@
 package object messages {
 
-  case object Start
+  case class Start(codes: Seq[String])
 
   case class Tour(code: String)
 
