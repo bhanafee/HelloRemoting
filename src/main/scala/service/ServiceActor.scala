@@ -1,12 +1,13 @@
 package service
 
-import akka.actor.Actor
 import java.util.{Currency, Locale}
+
+import akka.actor.Actor
 import messages._
 
-class ServiceActor extends Actor {
+class ServiceActor(val guide: String) extends Actor {
   def describe(locale: Locale) =
-    s"In ${locale.getDisplayCountry}, ${locale.getDisplayLanguage} is spoken and the currency is the ${Currency.getInstance(locale).getDisplayName}"
+    s"${guide} says that in ${locale.getDisplayCountry}, ${locale.getDisplayLanguage} is spoken and the currency is the ${Currency.getInstance(locale).getDisplayName}"
 
   override def receive = {
     case Start(_) =>
