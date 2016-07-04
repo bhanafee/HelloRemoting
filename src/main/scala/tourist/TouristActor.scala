@@ -8,8 +8,8 @@ class TouristActor extends Actor {
 
   override def receive = {
     case Start(codes) =>
-      codes.foreach(service ! Tour(_))
-    case Guide(code, description) =>
+      codes.foreach(service ! Inquiry(_))
+    case Guidance(code, description) =>
       println(s"$code: $description")
   }
 }

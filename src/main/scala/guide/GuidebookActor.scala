@@ -10,9 +10,9 @@ class GuidebookActor(val guide: String) extends Actor {
     s"${guide} says that in ${locale.getDisplayCountry}, ${locale.getDisplayLanguage} is spoken and the currency is the ${Currency.getInstance(locale).getDisplayName}"
 
   override def receive = {
-    case Tour(code) =>
+    case Inquiry(code) =>
       Locale.getAvailableLocales.filter(_.getCountry == code).foreach { locale =>
-        sender ! Guide(code, describe(locale))
+        sender ! Guidance(code, describe(locale))
       }
   }
 }
