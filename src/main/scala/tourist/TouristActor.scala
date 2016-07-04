@@ -1,9 +1,9 @@
-package client
+package tourist
 
 import akka.actor.Actor
 import messages._
 
-class ClientActor extends Actor {
+class TouristActor extends Actor {
   val service = context.actorSelection("akka.tcp://ServiceSystem@127.0.0.1:8880/user/service")
 
   override def receive = {

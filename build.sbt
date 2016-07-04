@@ -1,4 +1,4 @@
-name := "client"
+name := "tourGuide"
 
 version := "1.0"
 
