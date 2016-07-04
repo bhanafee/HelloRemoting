@@ -1,8 +1,7 @@
-package tourist
-
 import java.util.Locale
 
 import akka.actor.{ActorRef, ActorSystem, Props}
+import tourist.TouristActor
 
 object TouristMain extends App {
   val system: ActorSystem = ActorSystem("TouristSystem")

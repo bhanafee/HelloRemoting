@@ -1,6 +1,5 @@
-package guide
-
 import akka.actor.{ActorRef, ActorSystem, Props}
+import guide.GuidebookActor
 
 object GuidebookMain extends App {
   val guide: String = args.headOption.getOrElse("Wikipedia")
