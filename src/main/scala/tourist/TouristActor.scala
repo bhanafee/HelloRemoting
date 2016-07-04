@@ -1,14 +1,13 @@
 package tourist
 
-import akka.actor.Actor
+import akka.actor.{Actor, ActorRef}
 import messages._
 
-class TouristActor extends Actor {
-  val service = context.actorSelection("akka.tcp://GuidebookSystem@127.0.0.1:8880/user/guidebook")
+class TouristActor(guidebook: ActorRef) extends Actor {
 
   override def receive = {
     case Start(codes) =>
-      codes.foreach(service ! Inquiry(_))
+      codes.foreach(guidebook ! Inquiry(_))
     case Guidance(code, description) =>
       println(s"$code: $description")
   }
