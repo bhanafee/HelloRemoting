@@ -1,4 +1,4 @@
-name := "tourGuide"
+name := "Guidebook"
 
 version := "1.0"
 
