@@ -14,7 +14,7 @@ object TouristMain extends App {
 
   val guidebook: ActorRef = Await.result(system.
     actorSelection(path).
-    resolveOne(5 seconds), 6 seconds)
+    resolveOne(5 seconds), 5 seconds)
 
   val tourProps: Props =
     Props(classOf[TouristActor], guidebook)
