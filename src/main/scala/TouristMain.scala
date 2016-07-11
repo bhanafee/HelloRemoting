@@ -5,19 +5,20 @@ import akka.util.Timeout
 import tourist.TouristActor
 
 import scala.concurrent.ExecutionContext.Implicits.global
-import scala.concurrent.duration._
+import scala.concurrent.duration.SECONDS
 import scala.util.{Failure, Success}
 
 object TouristMain extends App {
-  implicit val timeout: Timeout = 5 seconds
-
   val system: ActorSystem = ActorSystem("TouristSystem")
 
   val path =
     "akka.tcp://BookSystem@127.0.0.1:2552/user/guidebook"
 
+  implicit val timeout: Timeout = Timeout(5, SECONDS)
+
   system.actorSelection(path).resolveOne().onComplete {
     case Success(guidebook) =>
+
       val tourProps: Props =
         Props(classOf[TouristActor], guidebook)
       val tourist: ActorRef = system.actorOf(tourProps)
