@@ -21,6 +21,7 @@ class Guidebook extends Actor {
 
   override def receive = {
     case Inquiry(code) =>
+      println(s"Actor ${self.path.name} responding to inquiry about $code")
       Locale.getAvailableLocales.filter(_.getCountry == code).
         foreach { locale =>
           sender ! Guidance(code, describe(locale))
