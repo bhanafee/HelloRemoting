@@ -1,20 +1,17 @@
 import java.util.Locale
 
 import akka.actor.{ActorRef, ActorSystem, Props}
-
-import guide.GuidebookActor
-import tourist.TouristActor
+import Tourist.Start
 
 object Main extends App {
   val system: ActorSystem = ActorSystem("GuideSystem")
 
-  val guideProps: Props =
-    Props(classOf[GuidebookActor], "Wikipedia")
+  val guideProps: Props = Props[Guidebook]
   val guidebook: ActorRef = system.actorOf(guideProps)
 
   val tourProps: Props =
-    Props(classOf[TouristActor], guidebook)
+    Props(classOf[Tourist], guidebook)
   val tourist: ActorRef = system.actorOf(tourProps)
 
-  tourist ! messages.Start(Locale.getISOCountries)
+  tourist ! Start(Locale.getISOCountries)
 }
