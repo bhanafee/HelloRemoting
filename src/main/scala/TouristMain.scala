@@ -2,7 +2,8 @@ import java.util.Locale
 
 import akka.actor.{ActorRef, ActorSystem, Props}
 import akka.util.Timeout
-import tourist.TouristActor
+
+import Tourist.Start
 
 import scala.concurrent.ExecutionContext.Implicits.global
 import scala.concurrent.duration.SECONDS
@@ -20,10 +21,10 @@ object TouristMain extends App {
     case Success(guidebook) =>
 
       val tourProps: Props =
-        Props(classOf[TouristActor], guidebook)
+        Props(classOf[Tourist], guidebook)
       val tourist: ActorRef = system.actorOf(tourProps)
 
-      tourist ! messages.Start(Locale.getISOCountries)
+      tourist ! Start(Locale.getISOCountries)
 
     case Failure(e) => println(e)
   }

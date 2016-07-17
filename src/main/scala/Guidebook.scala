@@ -1,15 +1,22 @@
-package guide
+object Guidebook {
+
+  case class Inquiry(code: String)
+
+}
 
 import java.util.{Currency, Locale}
 
 import akka.actor.Actor
-import messages._
 
-class GuidebookActor(val guide: String) extends Actor {
+
+import Guidebook.Inquiry
+import Tourist.Guidance
+
+class Guidebook extends Actor {
   def describe(locale: Locale) =
-    s"""${guide} says that in ${locale.getDisplayCountry},
-      |${locale.getDisplayLanguage} is spoken and the currency
-      |is the ${Currency.getInstance(locale).getDisplayName}""".
+    s"""In ${locale.getDisplayCountry},
+        |${locale.getDisplayLanguage} is spoken and the currency
+        |is the ${Currency.getInstance(locale).getDisplayName}""".
       stripMargin.replaceAll("\n", " ")
 
   override def receive = {
