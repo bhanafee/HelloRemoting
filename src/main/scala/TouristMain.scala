@@ -1,31 +1,20 @@
 import java.util.Locale
 
 import akka.actor.{ActorRef, ActorSystem, Props}
-import akka.util.Timeout
+import akka.routing.FromConfig
 
 import Tourist.Start
-
-import scala.concurrent.ExecutionContext.Implicits.global
-import scala.concurrent.duration.SECONDS
-import scala.util.{Failure, Success}
 
 object TouristMain extends App {
   val system: ActorSystem = ActorSystem("TouristSystem")
 
-  val path =
-    "akka.tcp://BookSystem@127.0.0.1:2552/user/guidebook"
+  val guidebook: ActorRef =
+    system.actorOf(FromConfig.props(), "balancer")
 
-  implicit val timeout: Timeout = Timeout(5, SECONDS)
+  val tourProps: Props =
+    Props(classOf[Tourist], guidebook)
 
-  system.actorSelection(path).resolveOne().onComplete {
-    case Success(guidebook) =>
+  val tourist: ActorRef = system.actorOf(tourProps)
 
-      val tourProps: Props =
-        Props(classOf[Tourist], guidebook)
-      val tourist: ActorRef = system.actorOf(tourProps)
-
-      tourist ! Start(Locale.getISOCountries)
-
-    case Failure(e) => println(e)
-  }
+  tourist ! Start(Locale.getISOCountries)
 }
