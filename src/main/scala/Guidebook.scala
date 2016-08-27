@@ -14,10 +14,7 @@ import Tourist.Guidance
 
 class Guidebook extends Actor {
   def describe(locale: Locale) =
-    s"""In ${locale.getDisplayCountry},
-        |${locale.getDisplayLanguage} is spoken and the currency
-        |is the ${Currency.getInstance(locale).getDisplayName}""".
-      stripMargin.replaceAll("\n", " ")
+    s"""In ${locale.getDisplayCountry}, ${locale.getDisplayLanguage} is spoken and the currency is the ${Currency.getInstance(locale).getDisplayName}"""
 
   override def receive = {
     case Inquiry(code) =>
