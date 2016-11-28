@@ -9,3 +9,5 @@ resolvers += "Lightbend Repository" at "http://repo.typesafe.com/typesafe/releas
 libraryDependencies ++= Seq(
   "com.typesafe.akka" %% "akka-actor" % "2.4.8"
 )
+
+enablePlugins(JavaAppPackaging)
