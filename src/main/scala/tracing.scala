@@ -41,9 +41,7 @@ class TracingReceive(r: Receive, state: Spanned) extends Receive {
       case Success(ctx) =>
         builder.addReference(FOLLOWS_FROM, ctx).start()
       case Failure(ex) =>
-        val s = builder.start()
-        s.log(ex.getMessage)
-        s
+        builder.start()
     }
     r(v1)
     state.span.finish()
