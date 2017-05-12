@@ -8,6 +8,7 @@ resolvers += "Lightbend Repository" at "http://repo.typesafe.com/typesafe/releas
 
 libraryDependencies ++= Seq(
   "com.typesafe.akka" %% "akka-actor" % "2.5.0",
+  "com.typesafe.akka" %% "akka-remote" % "2.5.0",
   "io.opentracing"    %  "opentracing-api"  % "0.21.0",
   "io.opentracing"    %  "opentracing-mock" % "0.21.0"
 )
