@@ -7,16 +7,15 @@ object Guidebook {
 import java.util.{Currency, Locale}
 
 import akka.actor.Actor
-
-
 import Guidebook.Inquiry
 import Tourist.Guidance
+import akka.event.LoggingReceive
 
 class Guidebook extends Actor {
   def describe(locale: Locale) =
     s"""In ${locale.getDisplayCountry}, ${locale.getDisplayLanguage} is spoken and the currency is the ${Currency.getInstance(locale).getDisplayName}"""
 
-  override def receive = {
+  override def receive = LoggingReceive {
     case Inquiry(code) =>
       println(s"Actor ${self.path.name} responding to inquiry about $code")
       Locale.getAvailableLocales.filter(_.getCountry == code).

@@ -7,16 +7,16 @@ object Tourist {
 }
 
 import akka.actor.{Actor, ActorRef}
-
 import Guidebook.Inquiry
 import Tourist.{Guidance, Start}
+import akka.event.LoggingReceive
 
 class Tourist(guidebook: ActorRef) extends Actor {
 
-  override def receive = {
-    case Start(codes) =>
-      codes.foreach(guidebook ! Inquiry(_))
-    case Guidance(code, description) =>
-      println(s"$code: $description")
+  override def receive = LoggingReceive {
+      case Start(codes) =>
+        codes.foreach(guidebook ! Inquiry(_))
+      case Guidance(code, description) =>
+        println(s"$code: $description")
   }
 }
